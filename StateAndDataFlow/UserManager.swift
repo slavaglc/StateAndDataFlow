@@ -6,8 +6,19 @@
 //
 
 import Combine
+import SwiftUI
 
 class UserManager: ObservableObject {
-    @Published var isRegister = false
-    var name = ""
+    @AppStorage("isRegister") var isRegister = false
+    @AppStorage("name") var name = ""
+    
+    public func logOut() {
+        isRegister = false
+        name = ""
+        
+        if let bundleID = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: bundleID)
+        }
+        
+    }
 }
